@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>EU VAT Calculator (2026)</title>
+
+<meta name="description" content="Free EU VAT calculator. Add or remove VAT instantly.">
+
+<link rel="canonical" href="https://username.github.io/">
+
+<meta name="robots" content="index, follow">
+
+<!-- AdSense -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6962138248370670"
+crossorigin="anonymous"></script>
+
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-P3JWXPX1J1"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-P3JWXPX1J1');
+</script>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+
+*{box-sizing:border-box;font-family:'Inter',sans-serif;}
+
+body{
+margin:0;
+background:linear-gradient(135deg,#5f9cff,#6d5dfc);
+padding:20px;
+display:flex;
+justify-content:center;
+}
+
+.wrapper{max-width:520px;width:100%;}
+
+.card{
+background:white;
+padding:32px;
+border-radius:14px;
+box-shadow:0 15px 40px rgba(0,0,0,0.25);
+margin-bottom:20px;
+}
+
+h1{text-align:center;margin-bottom:6px;}
+
+.subtitle{text-align:center;color:#666;margin-bottom:20px;}
+
+input,select{
+width:100%;
+padding:12px;
+margin-top:10px;
+border-radius:10px;
+border:1px solid #ddd;
+font-size:15px;
+}
+
+.result{
+margin-top:18px;
+font-weight:600;
+font-size:18px;
+text-align:center;
+padding:18px;
+background:#f5f6ff;
+border-radius:10px;
+}
+
+button{
+margin-top:12px;
+width:100%;
+padding:14px;
+background:#333;
+border:none;
+color:white;
+border-radius:10px;
+font-size:16px;
+cursor:pointer;
+}
+
+footer{
+text-align:center;
+font-size:13px;
+color:#777;
+margin-top:20px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="wrapper">
+
+<div class="card">
+
+<h1>EU VAT Calculator</h1>
+
+<p class="subtitle">
+Add or remove VAT instantly
+</p>
+
+<select id="country">
+
+<option value="">Select EU country</option>
+
+<option value="20">Austria (20%)</option>
+<option value="21">Belgium (21%)</option>
+<option value="20">Bulgaria (20%)</option>
+<option value="25">Croatia (25%)</option>
+<option value="19">Cyprus (19%)</option>
+<option value="21">Czechia (21%)</option>
+<option value="25">Denmark (25%)</option>
+<option value="20">Estonia (20%)</option>
+<option value="24">Finland (24%)</option>
+<option value="20">France (20%)</option>
+<option value="19">Germany (19%)</option>
+<option value="24">Greece (24%)</option>
+<option value="27">Hungary (27%)</option>
+<option value="23">Ireland (23%)</option>
+<option value="22">Italy (22%)</option>
+<option value="21">Latvia (21%)</option>
+<option value="21">Lithuania (21%)</option>
+<option value="17">Luxembourg (17%)</option>
+<option value="18">Malta (18%)</option>
+<option value="21">Netherlands (21%)</option>
+<option value="23">Poland (23%)</option>
+<option value="23">Portugal (23%)</option>
+<option value="19">Romania (19%)</option>
+<option value="20">Slovakia (20%)</option>
+<option value="22">Slovenia (22%)</option>
+<option value="21">Spain (21%)</option>
+<option value="25">Sweden (25%)</option>
+
+</select>
+
+<input id="vatRate" placeholder="VAT rate %" readonly>
+
+<input id="amount" type="number" placeholder="Amount (€)">
+
+<select id="mode">
+<option value="add">Add VAT</option>
+<option value="remove">Remove VAT</option>
+</select>
+
+<div class="result" id="result">
+Enter an amount and choose a country
+</div>
+
+<button onclick="copyResult()">Copy Result</button>
+<button onclick="sharePage()">Share</button>
+
+</div>
+
+<footer>
+
+© 2026 EU VAT Calculator<br>
+
+<a href="privacy.html">Privacy Policy</a> |
+<a href="contact.html">Contact</a>
+
+</footer>
+
+</div>
+
+<script>
+
+const amountInput=document.getElementById("amount");
+const vatInput=document.getElementById("vatRate");
+const countrySelect=document.getElementById("country");
+const modeSelect=document.getElementById("mode");
+const resultBox=document.getElementById("result");
+
+function formatCurrency(value){
+return new Intl.NumberFormat('en',{style:'currency',currency:'EUR'}).format(value);
+}
+
+function calculate(){
+
+const amount=parseFloat(amountInput.value);
+const vat=parseFloat(vatInput.value);
+const mode=modeSelect.value;
+
+if(isNaN(amount)||isNaN(vat)) return;
+
+let net,vatAmount,total;
+
+if(mode==="add"){
+
+net=amount;
+vatAmount=amount*(vat/100);
+total=net+vatAmount;
+
+}else{
+
+net=amount/(1+vat/100);
+vatAmount=amount-net;
+total=amount;
+
+}
+
+resultBox.innerHTML=
+`Net price: ${formatCurrency(net)}<br>
+VAT amount: ${formatCurrency(vatAmount)}<br>
+Total price: ${formatCurrency(total)}`;
+
+}
+
+countrySelect.addEventListener("change",()=>{
+vatInput.value=countrySelect.value;
+calculate();
+});
+
+amountInput.addEventListener("input",calculate);
+modeSelect.addEventListener("change",calculate);
+
+function copyResult(){
+navigator.clipboard.writeText(resultBox.innerText);
+alert("Result copied");
+}
+
+function sharePage(){
+
+if(navigator.share){
+
+navigator.share({
+title:"EU VAT Calculator",
+url:window.location.href
+});
+
+}else{
+
+navigator.clipboard.writeText(window.location.href);
+alert("Link copied");
+
+}
+
+}
+
+</script>
+
+</body>
+</html>
+```
