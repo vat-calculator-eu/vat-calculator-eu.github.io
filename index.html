@@ -7,7 +7,7 @@
 
 <title>EU VAT Calculator (2026)</title>
 
-<meta name="description" content="Free EU VAT calculator. Add or remove VAT instantly.">
+<meta name="description" content="Free EU VAT calculator. Add or remove VAT instantly for all EU countries.">
 
 <link rel="canonical" href="https://vat-calculator-eu.github.io/">
 
@@ -30,7 +30,10 @@ gtag('config', 'G-P3JWXPX1J1');
 
 <style>
 
-*{box-sizing:border-box;font-family:'Inter',sans-serif;}
+*{
+box-sizing:border-box;
+font-family:'Inter',sans-serif;
+}
 
 body{
 margin:0;
@@ -40,7 +43,10 @@ display:flex;
 justify-content:center;
 }
 
-.wrapper{max-width:520px;width:100%;}
+.wrapper{
+max-width:520px;
+width:100%;
+}
 
 .card{
 background:white;
@@ -50,9 +56,16 @@ box-shadow:0 15px 40px rgba(0,0,0,0.25);
 margin-bottom:20px;
 }
 
-h1{text-align:center;margin-bottom:6px;}
+h1{
+text-align:center;
+margin-bottom:6px;
+}
 
-.subtitle{text-align:center;color:#666;margin-bottom:20px;}
+.subtitle{
+text-align:center;
+color:#666;
+margin-bottom:20px;
+}
 
 input,select{
 width:100%;
@@ -92,6 +105,15 @@ color:#777;
 margin-top:20px;
 }
 
+a{
+color:#555;
+text-decoration:none;
+}
+
+a:hover{
+text-decoration:underline;
+}
+
 </style>
 
 </head>
@@ -105,7 +127,7 @@ margin-top:20px;
 <h1>EU VAT Calculator</h1>
 
 <p class="subtitle">
-Add or remove VAT instantly
+Add or remove VAT instantly for EU countries
 </p>
 
 <select id="country">
@@ -157,6 +179,20 @@ Enter an amount and choose a country
 
 <button onclick="copyResult()">Copy Result</button>
 <button onclick="sharePage()">Share</button>
+
+</div>
+
+<div class="card">
+
+<h2>About VAT in the European Union</h2>
+
+<p>
+VAT (Value Added Tax) is a consumption tax applied to goods and services in the European Union. Each EU country sets its own standard VAT rate. Businesses usually include VAT in the final price of products and services.
+</p>
+
+<p>
+This EU VAT calculator helps estimate VAT quickly for different EU countries. It can be used to add VAT to a price or remove VAT from a total amount.
+</p>
 
 </div>
 
